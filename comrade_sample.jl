@@ -1,3 +1,5 @@
+using Distributions: Uniform
+
 # --- CLI arguments ---
 function parse_args(args)
     parsed = Dict{String,String}()

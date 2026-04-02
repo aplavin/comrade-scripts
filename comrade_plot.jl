@@ -1,7 +1,7 @@
 using Serialization, Statistics
 using VLBIFiles, VLBIPlots, Comrade, VLBISkyModels, VLBIImagePriors
 using Distributions, Optimization, OptimizationLBFGSB, Enzyme, AdvancedHMC
-using Uncertain
+using Uncertain: U
 using MakieExtra; import GLMakie
 using DataManipulation, Accessors, AxisKeysExtra
 using Unitful, UnitfulAngles

@@ -2,7 +2,7 @@
 
 julia_version = "1.10.11"
 manifest_format = "2.0"
-project_hash = "fcf89b1f708eb5f24a050ff60245ebf3f49be1cc"
+project_hash = "c86cf5c5d539ab9be977407fce2fbf12ddf5a609"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "f7304359109c768cf32dc5fa2d371565bb63b68a"
@@ -172,6 +172,12 @@ version = "0.4.2"
 git-tree-sha1 = "f9e9a66c9b7be1ad7372bbd9b062d9230c30c5ce"
 uuid = "dce04be8-c92d-5529-be00-80e4d2c0e197"
 version = "2.5.0"
+
+[[deps.ArgParse]]
+deps = ["Logging", "TextWrap"]
+git-tree-sha1 = "22cf435ac22956a7b45b0168abbc871176e7eecc"
+uuid = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"
+version = "1.2.0"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -407,9 +413,9 @@ version = "0.5.2"
 
 [[deps.ChainRulesCore]]
 deps = ["Compat", "LinearAlgebra"]
-git-tree-sha1 = "e4c6a16e77171a5f5e25e9646617ab1c276c5607"
+git-tree-sha1 = "12177ad6b3cad7fd50c8b3825ce24a99ad61c18f"
 uuid = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
-version = "1.26.0"
+version = "1.26.1"
 weakdeps = ["SparseArrays"]
 
     [deps.ChainRulesCore.extensions]
@@ -886,9 +892,9 @@ version = "1.0.7"
 
 [[deps.Enzyme]]
 deps = ["CEnum", "EnzymeCore", "Enzyme_jll", "GPUCompiler", "InteractiveUtils", "LLVM", "Libdl", "LinearAlgebra", "ObjectFile", "PrecompileTools", "Preferences", "Printf", "Random", "SparseArrays"]
-git-tree-sha1 = "63dd6fec231d67bbe8e8569cf9e374b0c3fcd9cf"
+git-tree-sha1 = "d6dd65421104fa9f7d5cc37283a998937f359a39"
 uuid = "7da242da-08ed-463a-9acd-ee780be4f1d9"
-version = "0.13.137"
+version = "0.13.138"
 
     [deps.Enzyme.extensions]
     EnzymeBFloat16sExt = "BFloat16s"
@@ -1474,9 +1480,9 @@ version = "1.7.1"
 
 [[deps.JSON]]
 deps = ["Dates", "Logging", "Parsers", "PrecompileTools", "StructUtils", "UUIDs", "Unicode"]
-git-tree-sha1 = "b3ad4a0255688dcb895a52fafbaae3023b588a90"
+git-tree-sha1 = "67c6f1f085cb2671c93fe34244c9cccde30f7a26"
 uuid = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
-version = "1.4.0"
+version = "1.5.0"
 
     [deps.JSON.extensions]
     JSONArrowExt = ["ArrowTypes"]
@@ -2779,6 +2785,11 @@ version = "0.1.7"
 deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
 uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
+[[deps.TextWrap]]
+git-tree-sha1 = "43044b737fa70bc12f6105061d3da38f881a3e3c"
+uuid = "b718987f-49a8-5099-9789-dcd902bef87d"
+version = "1.0.2"
+
 [[deps.TiffImages]]
 deps = ["ColorTypes", "DataStructures", "DocStringExtensions", "FileIO", "FixedPointNumbers", "IndirectArrays", "Inflate", "Mmap", "OffsetArrays", "PkgVersion", "PrecompileTools", "ProgressMeter", "SIMD", "UUIDs"]
 git-tree-sha1 = "08c10bc34f4e7743f530793d0985bf3c254e193d"
@@ -2869,9 +2880,9 @@ uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 
 [[deps.Uncertain]]
 deps = ["Accessors", "LinearAlgebra"]
-git-tree-sha1 = "43b5c9d9e5b2c5eef828ebd4efe8bf4a815744c5"
+git-tree-sha1 = "638a4bc54ff64702680476435f7587bbf1e35c0d"
 uuid = "b33f403f-199b-472b-b9d0-1cd2092892d0"
-version = "0.1.19"
+version = "0.1.20"
 
     [deps.Uncertain.extensions]
     FlexiJoinsExt = "FlexiJoins"
@@ -2952,20 +2963,20 @@ weakdeps = ["Comrade", "ComradeBase", "VLBISkyModels"]
 
 [[deps.VLBIFiles]]
 deps = ["AccessorsExtra", "AxisKeys", "CSV", "DataManipulation", "DateFormats", "Dates", "DelimitedFiles", "Dictionaries", "FITSIO", "InterferometricModels", "PrecompileTools", "PyFormattedStrings", "Reexport", "StaticArrays", "Statistics", "StructArrays", "Tables", "Uncertain", "Unitful", "UnitfulAngles", "UnitfulAstro", "VLBIData"]
-git-tree-sha1 = "dd0cb8e043e818ffd7ffacdaf171e1b9eab5b8ae"
+git-tree-sha1 = "65ee6281c1a1e5f53bf85c4354bb0cfd1f0dcf93"
 uuid = "c1ebf4c8-f9d4-409a-8daf-7009448f4e6e"
 version = "0.4.14"
 
     [deps.VLBIFiles.extensions]
     InterpolationsExt = "Interpolations"
-    PyCallExt = "PyCall"
+    PythonCallExt = "PythonCall"
     RectiGridsAxisKeysExtraExt = ["RectiGrids", "AxisKeysExtra"]
     SkyCoordsExt = "SkyCoords"
 
     [deps.VLBIFiles.weakdeps]
     AxisKeysExtra = "b7a0d2b7-1990-46dc-b5dd-87820ecd1b09"
     Interpolations = "a98d9a8b-a2ab-59e6-89dd-64a1c18fca59"
-    PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
+    PythonCall = "6099a3de-0909-46bc-b1f4-468b9a2dfc0d"
     RectiGrids = "8ac6971d-971d-971d-971d-971d5ab1a71a"
     SkyCoords = "fc659fc5-75a3-5475-a2ea-3da92c065361"
 

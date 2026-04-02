@@ -1,30 +1,71 @@
+using ArgParse
 using Distributions: Uniform
 
-# --- CLI arguments ---
-function parse_args(args)
-    parsed = Dict{String,String}()
-    for arg in args
-        if startswith(arg, "--")
-            parts = split(arg[3:end], "=", limit=2)
-            parsed[parts[1]] = length(parts) == 2 ? parts[2] : ""
-        else
-            error("Unknown argument format: $arg. Use --key=value.")
-        end
-    end
-    npix = parse(Int, parsed["npix"])
-    fov = parse(Float64, parsed["fov"])  # in mas
-    fwhm = parse(Float64, parsed["fwhm"])  # in mas
-    datafile = parsed["datafile"]
-    σamp = haskey(parsed, "sigma-amp") ? parse(Float64, parsed["sigma-amp"]) : nothing
-    σphase = haskey(parsed, "sigma-phase") ? parse(Float64, parsed["sigma-phase"]) : nothing
-    quickrun = haskey(parsed, "quickrun")
-    output = parsed["output"]
-    ferr = haskey(parsed, "ferr") ? parse(Float64, parsed["ferr"]) : 0.0
-    ftot_str = get(parsed, "ftot", "0.1,10")
+parse_ftot(ftot_str::AbstractString) = begin
     ftot_vals = parse.(Float64, split(ftot_str, ","))
     length(ftot_vals) == 2 || error("--ftot expects two comma-separated values, e.g. --ftot=0.1,10")
-    ftot = Uniform(ftot_vals...)
-    (; npix, fov, fwhm, datafile, σamp, σphase, quickrun, output, ferr, ftot)
+    Uniform(ftot_vals...)
+end
+
+function parse_args(args)
+    settings = ArgParseSettings(
+        description="Run Comrade imaging on VLBI data.",
+        autofix_names=true,
+    )
+    @add_arg_table! settings begin
+        "--npix"
+            help = "image size in pixels per side"
+            arg_type = Int
+            required = true
+        "--fov"
+            help = "field of view in mas"
+            arg_type = Float64
+            required = true
+        "--fwhm"
+            help = "Gaussian prior FWHM in mas"
+            arg_type = Float64
+            required = true
+        "--datafile"
+            help = "input visibility file"
+            arg_type = String
+            required = true
+        "--output"
+            help = "output .jls file"
+            arg_type = String
+            required = true
+        "--sigma-amp"
+            help = "log-amplitude gain prior width; provide together with --sigma-phase"
+            arg_type = Float64
+        "--sigma-phase"
+            help = "phase gain prior width in radians; provide together with --sigma-amp"
+            arg_type = Float64
+        "--ferr"
+            help = "extra fractional noise to add before fitting"
+            arg_type = Float64
+            default = 0.0
+        "--ftot"
+            help = "total flux prior range as lo,hi in Jy"
+            arg_type = String
+            metavar = "LO,HI"
+            default = "0.1,10"
+        "--quickrun"
+            help = "fewer optimization trials and shorter MCMC for quick tests"
+            action = :store_true
+    end
+    parsed = ArgParse.parse_args(args, settings; as_symbols=true)
+    isnothing(parsed[:sigma_amp]) == isnothing(parsed[:sigma_phase]) || error("--sigma-amp and --sigma-phase must be provided together")
+    return (
+        npix=parsed[:npix],
+        fov=parsed[:fov],
+        fwhm=parsed[:fwhm],
+        datafile=parsed[:datafile],
+        σamp=parsed[:sigma_amp],
+        σphase=parsed[:sigma_phase],
+        quickrun=parsed[:quickrun],
+        output=parsed[:output],
+        ferr=parsed[:ferr],
+        ftot=parse_ftot(parsed[:ftot]),
+    )
 end
 
 cli = parse_args(ARGS)
